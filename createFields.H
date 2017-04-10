@@ -13,6 +13,20 @@
         mesh
     );
 
+    volScalarField tsum
+    (
+        IOobject
+        (
+            "tsum",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("tsum", dimless, 0.0)
+    );
+
     volScalarField tinduction
     (
         IOobject
@@ -24,7 +38,7 @@
             IOobject::AUTO_WRITE
         ),
         mesh,
-        dimensionedScalar("tinduction", dimless, 0.0)
+        dimensionedScalar("tinduction", dimTime, -1.0)
     );
 
     volScalarField alpha

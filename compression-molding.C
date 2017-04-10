@@ -33,21 +33,26 @@ int main(int argc, char *argv[])
         }
 
         volScalarField ti(t0*Foam::exp(T0/T));
-        tinduction += runTime.deltaT()/ti;
+        tsum += runTime.deltaT()/ti;
 
-        volScalarField xi(pos(1 - tinduction));
-        volScalarField kprime(Foam::pow(k0*Foam::exp(-Ea/R/T), 1.0/n));
+        volScalarField xi(pos(1 - tsum));
+        forAll(xi, i)
+        {
+            // tsum[i] > 1.0 for the first time
+            if (xi.v()[i] >= 1.0 and tinduction.v()[i] < 0.0)
+            {
+                tinduction[i] = runTime.timeOutputValue();
+            }
+        }
+
+        volScalarField k(k0*Foam::exp(-Ea/R/T));
 
         Info<< "\nCalculating cure rate distribution\n" << endl;
-        while (simple.correctNonOrthogonal())
-        {
-            solve
-            (
-                fvm::ddt(alpha)
-              ==
-                n*kprime*Foam::pow(alpha, (n - 1)/n)*Foam::pow(1 - alpha, (n + 1)/n)
-            );
-        }
+
+        // If tsum in the cell is less the 1.0, alpha == 0, otherwise
+        // it is calculated using formula
+        alpha =
+            xi*k*Foam::pow(runTime - tinduction, n)/(1 + k*Foam::pow(runTime - tinduction, n));
 
         runTime.write();
 
