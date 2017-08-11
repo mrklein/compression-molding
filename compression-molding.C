@@ -1,4 +1,4 @@
-// This file is base of OpenFOAM. Simple modification of laplacianFoam.
+// This file is based on OpenFOAM. Simple modification of laplacianFoam.
 
 #include "fvCFD.H"
 #include "simpleControl.H"
