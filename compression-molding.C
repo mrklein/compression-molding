@@ -1,4 +1,13 @@
-// This file is based on OpenFOAM. Simple modification of laplacianFoam.
+// This file is based on OpenFOAM(R). Simple modification of laplacianFoam.
+//
+// DISCLAIMER
+// This offering is not approved or endorsed by OpenCFD Limited, producer and distributor
+// of the OpenFOAM software via www.openfoam.com, and owner of the OPENFOAM(R) and OpenCFD(R)
+// trade marks.
+//
+// ACKNOWLEDGEMENT
+// OPENFOAM®  is a registered trade mark of OpenCFD Limited, producer and distributor of the
+// OpenFOAM software via www.openfoam.com.
 
 #include "fvCFD.H"
 #include "simpleControl.H"
